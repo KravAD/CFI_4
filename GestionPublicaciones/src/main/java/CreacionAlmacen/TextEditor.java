@@ -12,6 +12,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.swing.table.DefaultTableModel;
+
 public class TextEditor extends JFrame {
     private JTextArea textArea;
     private JButton saveButton;
@@ -25,8 +27,7 @@ public class TextEditor extends JFrame {
 
     private JTextField searchField;
     private JButton searchButton;
-
-
+    
     public TextEditor() {
         setLayout(new BorderLayout());
 
@@ -40,19 +41,20 @@ public class TextEditor extends JFrame {
         fileList2 = new JList<>(listModel2);
         FileAnalyzer = new FileAnalyzer();
         analyzeButton = new JButton("Analyze");
-        JPanel buttonPanel = new JPanel(new FlowLayout());
 
-        searchField = new JTextField(20);
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        searchField = new JTextField(5);
         searchButton = new JButton("Search");
         JPanel searchPanel = new JPanel(new FlowLayout());
 
-
-
+        JPanel panelWest = new JPanel();
+        panelWest.setLayout(new BoxLayout(panelWest, BoxLayout.Y_AXIS)); // Organizar verticalmente
+        panelWest.add(new JScrollPane(fileList1));
+        panelWest.add(new JScrollPane(fileList2));
+        add(panelWest, BorderLayout.WEST);
 
 
         add(new JScrollPane(textArea), BorderLayout.CENTER);
-        add(new JScrollPane(fileList1), BorderLayout.WEST);
-        add(new JScrollPane(fileList2), BorderLayout.EAST);
         buttonPanel.add(compareButton);
         buttonPanel.add(analyzeButton);
         buttonPanel.add(saveButton);
@@ -61,8 +63,6 @@ public class TextEditor extends JFrame {
         searchPanel.add(searchField);
         searchPanel.add(searchButton);
         add(searchPanel, BorderLayout.SOUTH);
-
-
 
 
         saveButton.addActionListener(new SaveButtonListener());
@@ -83,6 +83,13 @@ public class TextEditor extends JFrame {
                 FileAnalyzer.searchWord(selectedFile, word);
             }
         });
+        JButton openContactManagerButton = new JButton("Open Contact Manager");
+        openContactManagerButton.addActionListener(e -> {
+            Gestor contactManager = new Gestor(this);
+            contactManager.setVisible(true);
+        });
+        buttonPanel.add(openContactManagerButton);
+
 
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
