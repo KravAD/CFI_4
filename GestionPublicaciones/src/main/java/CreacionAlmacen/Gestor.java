@@ -4,7 +4,7 @@ import java.util.List;
 public class Gestor {
     private List<Contact> contacts;
 
-    public ContactManager() {
+    public Gestor() {
         contacts = new ArrayList<>();
     }
 
