@@ -20,6 +20,8 @@ public class TextEditor extends JFrame {
     private DefaultListModel<String> listModel1;
     private DefaultListModel<String> listModel2;
     private JButton compareButton;
+    private JButton analyzeButton;
+    private FileAnalyzer FileAnalyzer;
 
     public TextEditor() {
         setLayout(new BorderLayout());
@@ -32,17 +34,34 @@ public class TextEditor extends JFrame {
         listModel2 = new DefaultListModel<>();
         fileList1 = new JList<>(listModel1);
         fileList2 = new JList<>(listModel2);
+        FileAnalyzer = new FileAnalyzer();
+        analyzeButton = new JButton("Analyze");
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+
+
+
 
         add(new JScrollPane(textArea), BorderLayout.CENTER);
         add(saveButton, BorderLayout.SOUTH);
-        add(compareButton, BorderLayout.NORTH);
         add(new JScrollPane(fileList1), BorderLayout.WEST);
         add(new JScrollPane(fileList2), BorderLayout.EAST);
+        buttonPanel.add(compareButton);
+        buttonPanel.add(analyzeButton);
+        add(buttonPanel, BorderLayout.NORTH);
+
+
+
 
         saveButton.addActionListener(new SaveButtonListener());
         compareButton.addActionListener(new CompareButtonListener());
-        fileList1.addListSelectionListener(e -> loadFile(fileList1.getSelectedValue()));
-        fileList2.addListSelectionListener(e -> loadFile(fileList2.getSelectedValue()));
+        analyzeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedFile = fileList1.getSelectedValue();
+                FileAnalyzer.analyze(selectedFile);
+            }
+        });
+
 
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -56,7 +75,6 @@ public class TextEditor extends JFrame {
                 try (FileWriter writer = new FileWriter(fileName)) {
                     writer.write(textArea.getText());
                     listModel1.addElement(fileName);
-                    listModel2.addElement(fileName);
                     listModel2.addElement(fileName);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
