@@ -35,6 +35,22 @@ public class TextEditor extends JFrame {
     }
 
 
+    private class SaveButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String fileName = JOptionPane.showInputDialog("Enter file name");
+            if (fileName != null) {
+                try (FileWriter writer = new FileWriter(fileName)) {
+                    writer.write(textArea.getText());
+                    listModel.addElement(fileName);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        }
+    }
+
+
 
 
 }
