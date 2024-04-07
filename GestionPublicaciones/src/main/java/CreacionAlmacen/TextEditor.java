@@ -17,26 +17,31 @@ public class TextEditor extends JFrame {
     private JList<String> fileList2;
     private DefaultListModel<String> listModel1;
     private DefaultListModel<String> listModel2;
+    private JButton compareButton;
 
     public TextEditor() {
         setLayout(new BorderLayout());
 
+
         textArea = new JTextArea();
         saveButton = new JButton("Save");
+        compareButton = new JButton("Compare");
         listModel1 = new DefaultListModel<>();
         listModel2 = new DefaultListModel<>();
         fileList1 = new JList<>(listModel1);
         fileList2 = new JList<>(listModel2);
 
-
         add(new JScrollPane(textArea), BorderLayout.CENTER);
         add(saveButton, BorderLayout.SOUTH);
+        add(compareButton, BorderLayout.NORTH);
         add(new JScrollPane(fileList1), BorderLayout.WEST);
         add(new JScrollPane(fileList2), BorderLayout.EAST);
 
         saveButton.addActionListener(new SaveButtonListener());
+        compareButton.addActionListener(new CompareButtonListener());
         fileList1.addListSelectionListener(e -> loadFile(fileList1.getSelectedValue()));
         fileList2.addListSelectionListener(e -> loadFile(fileList2.getSelectedValue()));
+
 
 
         setSize(800, 600);
@@ -50,7 +55,8 @@ public class TextEditor extends JFrame {
             if (fileName != null) {
                 try (FileWriter writer = new FileWriter(fileName)) {
                     writer.write(textArea.getText());
-                    listModel.addElement(fileName);
+                    listModel1.addElement(fileName);
+                    listModel2.addElement(fileName);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
