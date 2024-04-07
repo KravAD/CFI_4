@@ -19,4 +19,20 @@ public class FileAnalyzer {
             }
         }
     }
+
+
+    public void searchWord(String fileName, String word) {
+        if (fileName != null && word != null) {
+            try {
+                List<String> lines = Files.readAllLines(Paths.get(fileName));
+                long wordCount = lines.stream()
+                        .flatMap(line -> Arrays.stream(line.split("\\s+")))
+                        .filter(w -> w.equals(word))
+                        .count();
+                System.out.println("The word '" + word + "' appears " + wordCount + " times in the file " + fileName + ".");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

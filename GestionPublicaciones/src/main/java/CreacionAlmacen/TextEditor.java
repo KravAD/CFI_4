@@ -23,6 +23,9 @@ public class TextEditor extends JFrame {
     private JButton analyzeButton;
     private FileAnalyzer FileAnalyzer;
 
+    private JTextField searchField;
+    private JButton searchButton;
+
     public TextEditor() {
         setLayout(new BorderLayout());
 
@@ -38,16 +41,25 @@ public class TextEditor extends JFrame {
         analyzeButton = new JButton("Analyze");
         JPanel buttonPanel = new JPanel(new FlowLayout());
 
+        searchField = new JTextField(20);
+        searchButton = new JButton("Search");
+        JPanel searchPanel = new JPanel(new FlowLayout());
+
+
 
 
 
         add(new JScrollPane(textArea), BorderLayout.CENTER);
-        add(saveButton, BorderLayout.SOUTH);
         add(new JScrollPane(fileList1), BorderLayout.WEST);
         add(new JScrollPane(fileList2), BorderLayout.EAST);
         buttonPanel.add(compareButton);
         buttonPanel.add(analyzeButton);
+        buttonPanel.add(saveButton);
         add(buttonPanel, BorderLayout.NORTH);
+
+        searchPanel.add(searchField);
+        searchPanel.add(searchButton);
+        add(searchPanel, BorderLayout.SOUTH);
 
 
 
@@ -62,6 +74,14 @@ public class TextEditor extends JFrame {
             }
         });
 
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedFile = fileList1.getSelectedValue();
+                String word = searchField.getText();
+                FileAnalyzer.searchWord(selectedFile, word);
+            }
+        });
 
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
