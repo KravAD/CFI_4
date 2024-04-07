@@ -15,6 +15,7 @@ public class TextEditor extends JFrame {
     private JButton saveButton;
     private JList<String> fileList;
     private DefaultListModel<String> listModel;
+
     public TextEditor() {
         setLayout(new BorderLayout());
 
@@ -58,5 +59,6 @@ public class TextEditor extends JFrame {
                 e.printStackTrace();
             }
         }
-
+    }
 }
+
