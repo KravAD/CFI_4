@@ -1,4 +1,5 @@
 package CreacionAlmacen;
+import Analizar.*;
 
 import javax.swing.*;
 import java.awt.*;
