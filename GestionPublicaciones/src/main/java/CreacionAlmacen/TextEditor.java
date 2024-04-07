@@ -34,7 +34,6 @@ public class TextEditor extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-
     private class SaveButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -50,7 +49,14 @@ public class TextEditor extends JFrame {
         }
     }
 
-
-
+    private void loadFile(String fileName) {
+        if (fileName != null) {
+            try {
+                String content = Files.lines(Paths.get(fileName)).collect(Collectors.joining("\n"));
+                textArea.setText(content);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
 }
