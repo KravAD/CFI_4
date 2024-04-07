@@ -3,7 +3,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,23 +12,31 @@ import java.util.stream.Collectors;
 public class TextEditor extends JFrame {
     private JTextArea textArea;
     private JButton saveButton;
-    private JList<String> fileList;
-    private DefaultListModel<String> listModel;
+    private JList<String> fileList1;
+    private JList<String> fileList2;
+    private DefaultListModel<String> listModel1;
+    private DefaultListModel<String> listModel2;
 
     public TextEditor() {
         setLayout(new BorderLayout());
 
         textArea = new JTextArea();
         saveButton = new JButton("Save");
-        listModel = new DefaultListModel<>();
-        fileList = new JList<>(listModel);
+        listModel1 = new DefaultListModel<>();
+        listModel2 = new DefaultListModel<>();
+        fileList1 = new JList<>(listModel1);
+        fileList2 = new JList<>(listModel2);
+
 
         add(new JScrollPane(textArea), BorderLayout.CENTER);
         add(saveButton, BorderLayout.SOUTH);
-        add(new JScrollPane(fileList), BorderLayout.EAST);
+        add(new JScrollPane(fileList1), BorderLayout.WEST);
+        add(new JScrollPane(fileList2), BorderLayout.EAST);
 
         saveButton.addActionListener(new SaveButtonListener());
-        fileList.addListSelectionListener(e -> loadFile(fileList.getSelectedValue()));
+        fileList1.addListSelectionListener(e -> loadFile(fileList1.getSelectedValue()));
+        fileList2.addListSelectionListener(e -> loadFile(fileList2.getSelectedValue()));
+
 
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -60,5 +67,6 @@ public class TextEditor extends JFrame {
             }
         }
     }
+
 }
 

@@ -10,5 +10,6 @@ public class Main {
             textEditor.setVisible(true);
         });
 
+
     }
 }
