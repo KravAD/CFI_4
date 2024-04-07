@@ -1,4 +1,6 @@
 package CreacionAlmacen;
+import Analizar.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -56,6 +58,7 @@ public class TextEditor extends JFrame {
                 try (FileWriter writer = new FileWriter(fileName)) {
                     writer.write(textArea.getText());
                     listModel1.addElement(fileName);
+                    listModel2.addElement(fileName);
                     listModel2.addElement(fileName);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();

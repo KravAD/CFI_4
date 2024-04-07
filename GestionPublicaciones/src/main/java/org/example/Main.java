@@ -1,6 +1,7 @@
 package org.example;
 import CreacionAlmacen.*;
 
+
 import javax.swing.*;
 
 public class Main {
@@ -9,7 +10,6 @@ public class Main {
             TextEditor textEditor = new TextEditor();
             textEditor.setVisible(true);
         });
-
 
     }
 }
