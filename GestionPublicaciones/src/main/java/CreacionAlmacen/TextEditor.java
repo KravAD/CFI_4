@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class TextEditor extends JFrame {
@@ -64,6 +65,26 @@ public class TextEditor extends JFrame {
                 textArea.setText(content);
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+    private class CompareButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String file1 = fileList1.getSelectedValue();
+            String file2 = fileList2.getSelectedValue();
+            if (file1 != null && file2 != null) {
+                try {
+                    java.util.List<String> lines1 = Files.readAllLines(Paths.get(file1));
+                    List<String> lines2 = Files.readAllLines(Paths.get(file2));
+                    if (lines1.equals(lines2)) {
+                        JOptionPane.showMessageDialog(null, "The files are identical.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "The files are different.");
+                    }
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         }
     }
