@@ -1,6 +1,5 @@
 package CreacionAlmacen;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -43,8 +42,6 @@ public class TextEditor extends JFrame {
         compareButton.addActionListener(new CompareButtonListener());
         fileList1.addListSelectionListener(e -> loadFile(fileList1.getSelectedValue()));
         fileList2.addListSelectionListener(e -> loadFile(fileList2.getSelectedValue()));
-
-
 
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
