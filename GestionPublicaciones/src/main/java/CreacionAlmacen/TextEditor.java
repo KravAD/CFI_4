@@ -16,6 +16,22 @@ public class TextEditor extends JFrame {
     private JList<String> fileList;
     private DefaultListModel<String> listModel;
     public TextEditor() {
+        setLayout(new BorderLayout());
+
+        textArea = new JTextArea();
+        saveButton = new JButton("Save");
+        listModel = new DefaultListModel<>();
+        fileList = new JList<>(listModel);
+
+        add(new JScrollPane(textArea), BorderLayout.CENTER);
+        add(saveButton, BorderLayout.SOUTH);
+        add(new JScrollPane(fileList), BorderLayout.EAST);
+
+        saveButton.addActionListener(new SaveButtonListener());
+        fileList.addListSelectionListener(e -> loadFile(fileList.getSelectedValue()));
+
+        setSize(800, 600);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
 
