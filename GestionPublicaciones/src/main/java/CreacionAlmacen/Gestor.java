@@ -73,7 +73,18 @@ public class Gestor extends JDialog {
                     contactTableModel.removeRow(selectedRow);
                 }
             });
-            
+
+        contactTableModel = new DefaultTableModel(new Object[]{"Name", "Email", "Phone"}, 0);
+
+        contactTable = new JTable(contactTableModel);
+
+        add(new JScrollPane(contactTable), BorderLayout.CENTER);
+
+        addContactButton.addActionListener(e -> {
+            Contact contact = new Contact(nameField.getText(), emailField.getText(), phoneField.getText());
+            gestor.addContact(contact);
+            contactTableModel.addRow(new Object[]{contact.getName(), contact.getEmail(), contact.getNumber()});
+        });
             setSize(400, 300);
         }
     }
