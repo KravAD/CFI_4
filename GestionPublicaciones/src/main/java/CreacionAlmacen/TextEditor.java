@@ -92,6 +92,16 @@ public class TextEditor extends JFrame {
         });
         buttonPanel.add(openContactManagerButton);
 
+        JButton newDocumentButton = new JButton("New Document");
+        newDocumentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createNewDocument();
+            }
+        });
+
+        buttonPanel.add(newDocumentButton);
+
 
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -123,6 +133,7 @@ public class TextEditor extends JFrame {
             }
         }
     }
+
     private class CompareButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -144,5 +155,19 @@ public class TextEditor extends JFrame {
         }
     }
 
+    private void createNewDocument() {
+        JInternalFrame internalFrame = new JInternalFrame("Document", true, true, true, true);
+        JTextArea textArea = new JTextArea();
+        internalFrame.add(new JScrollPane(textArea));
+        internalFrame.setSize(200, 200);
+        internalFrame.setVisible(true);
+        desktopPane.add(internalFrame);
+        try {
+            internalFrame.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
 
