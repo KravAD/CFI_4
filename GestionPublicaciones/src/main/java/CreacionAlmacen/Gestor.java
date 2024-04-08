@@ -52,6 +52,12 @@ public class Gestor extends JDialog {
 
         add(contactButtonPanel, BorderLayout.NORTH);
 
+        JPanel info = new JPanel(new FlowLayout());
+        info.add(new JTextField("Name:"));
+        info.add(new JTextField("Email:"));
+        info.add(new JTextField("Phone:"));
+        add(info, BorderLayout.CENTER);
+
         addContactButton.addActionListener(e -> {
             Contact contact = new Contact(nameField.getText(), emailField.getText(), phoneField.getText());
             gestor.addContact(contact);
