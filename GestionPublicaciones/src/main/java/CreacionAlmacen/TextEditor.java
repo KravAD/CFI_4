@@ -27,6 +27,8 @@ public class TextEditor extends JFrame {
 
     private JTextField searchField;
     private JButton searchButton;
+    private JDesktopPane desktopPane;
+
 
     public TextEditor() {
         setLayout(new BorderLayout());
