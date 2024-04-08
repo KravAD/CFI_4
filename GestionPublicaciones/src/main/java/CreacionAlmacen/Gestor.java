@@ -34,47 +34,50 @@ public class Gestor extends JDialog {
         return this.contacts;
     }
     public Gestor(JFrame parent) {
-        super(parent, "Contact Manager", true);
-        setLayout(new BorderLayout());
+            super(parent, "Contact Manager", true);
+            setLayout(new BorderLayout());
 
-        gestor = new Gestor();
-        addContactButton = new JButton("Add Contact");
-        removeContactButton = new JButton("Remove Contact");
+            gestor = new Gestor();
+            addContactButton = new JButton("Add Contact");
+            removeContactButton = new JButton("Remove Contact");
 
-        nameField = new JTextField(20);
-        emailField = new JTextField(20);
-        phoneField = new JTextField(20);
+            nameField = new JTextField(20);
+            emailField = new JTextField(20);
+            phoneField = new JTextField(20);
 
-        JPanel contactButtonPanel = new JPanel(new FlowLayout());
+            JPanel contactButtonPanel = new JPanel(new FlowLayout());
 
-        contactButtonPanel.add(addContactButton);
-        contactButtonPanel.add(removeContactButton);
+            contactButtonPanel.add(addContactButton);
+            contactButtonPanel.add(removeContactButton);
 
-        add(contactButtonPanel, BorderLayout.NORTH);
+            add(contactButtonPanel, BorderLayout.NORTH);
 
-        JPanel info = new JPanel(new FlowLayout());
-        info.add(new JTextField("Name:"));
-        info.add(new JTextField("Email:"));
-        info.add(new JTextField("Phone:"));
-        add(info, BorderLayout.CENTER);
+            JPanel info = new JPanel(new FlowLayout());
+            info.add(new JTextField("Name:"));
+            info.add(new JTextField("Email:"));
+            info.add(new JTextField("Phone:"));
+            add(info, BorderLayout.CENTER);
 
-        addContactButton.addActionListener(e -> {
-            Contact contact = new Contact(nameField.getText(), emailField.getText(), phoneField.getText());
-            gestor.addContact(contact);
-            contactTableModel.addRow(new Object[]{contact.getName(), contact.getEmail(), contact.getNumber()});
-        });
+            contactTableModel = new DefaultTableModel();
 
-        removeContactButton.addActionListener(e -> {
-            int selectedRow = contactTable.getSelectedRow();
-            if (selectedRow != -1) {
-                gestor.removeContact(gestor.getContacts().get(selectedRow));
-                contactTableModel.removeRow(selectedRow);
-            }
-        });
+            addContactButton.addActionListener(e -> {
+                Contact contact = new Contact(nameField.getText(), emailField.getText(), phoneField.getText());
+                gestor.addContact(contact);
+                contactTableModel.addRow(new Object[]{contact.getName(), contact.getEmail(), contact.getNumber()});
+            });
 
-        setSize(400, 300);
+            removeContactButton.addActionListener(e -> {
+                int selectedRow = contactTable.getSelectedRow();
+                if (selectedRow != -1) {
+                    gestor.removeContact(gestor.getContacts().get(selectedRow));
+                    contactTableModel.removeRow(selectedRow);
+                }
+            });
+            
+            setSize(400, 300);
+        }
     }
 
 
-    }
+
 
