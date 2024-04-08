@@ -9,9 +9,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 public class TextEditor extends JFrame {
@@ -27,11 +30,22 @@ public class TextEditor extends JFrame {
 
     private JTextField searchField;
     private JButton searchButton;
+
+    //AQUI
     private JDesktopPane desktopPane;
 
 
     public TextEditor() {
         setLayout(new BorderLayout());
+
+        //otra pantalla para el desktop
+        desktopPane = new JDesktopPane();
+
+        JFrame desktopFrame = new JFrame();
+        desktopFrame.add(desktopPane, BorderLayout.CENTER);
+        desktopFrame.setSize(800, 600);
+        desktopFrame.setVisible(true);
+        remove(desktopPane);
 
 
         textArea = new JTextArea();
@@ -68,7 +82,9 @@ public class TextEditor extends JFrame {
 
 
         saveButton.addActionListener(new SaveButtonListener());
+
         compareButton.addActionListener(new CompareButtonListener());
+
         analyzeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -85,6 +101,7 @@ public class TextEditor extends JFrame {
                 FileAnalyzer.searchWord(selectedFile, word);
             }
         });
+
         JButton openContactManagerButton = new JButton("Open Contact Manager");
         openContactManagerButton.addActionListener(e -> {
             Gestor contactManager = new Gestor(this);
@@ -92,15 +109,23 @@ public class TextEditor extends JFrame {
         });
         buttonPanel.add(openContactManagerButton);
 
-        JButton newDocumentButton = new JButton("New Document");
-        newDocumentButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createNewDocument();
-            }
-        });
 
-        buttonPanel.add(newDocumentButton);
+        setSize(800, 600);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+
+    private void createNewDocument() {
+        JInternalFrame internalFrame = new JInternalFrame("Document", true, true, true, true);
+        JTextArea textArea = new JTextArea();
+        internalFrame.add(new JScrollPane(textArea));
+        internalFrame.setSize(200, 200);
+        internalFrame.setVisible(true);
+        desktopPane.add(internalFrame);
+        try {
+            internalFrame.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+            e.printStackTrace();
+        }
 
 
         setSize(800, 600);
@@ -133,7 +158,6 @@ public class TextEditor extends JFrame {
             }
         }
     }
-
     private class CompareButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -141,33 +165,18 @@ public class TextEditor extends JFrame {
             String file2 = fileList2.getSelectedValue();
             if (file1 != null && file2 != null) {
                 try {
-                    java.util.List<String> lines1 = Files.readAllLines(Paths.get(file1));
-                    List<String> lines2 = Files.readAllLines(Paths.get(file2));
-                    if (lines1.equals(lines2)) {
+                    String content1 = new String(Files.readAllBytes(Paths.get(file1)));
+                    String content2 = new String(Files.readAllBytes(Paths.get(file2)));
+                    if (content1.equals(content2)) {
                         JOptionPane.showMessageDialog(null, "The files are identical.");
                     } else {
                         JOptionPane.showMessageDialog(null, "The files are different.");
                     }
                 } catch (IOException ioException) {
-                    ioException.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error reading files.");
                 }
             }
         }
-    }
-
-    private void createNewDocument() {
-        JInternalFrame internalFrame = new JInternalFrame("Document", true, true, true, true);
-        JTextArea textArea = new JTextArea();
-        internalFrame.add(new JScrollPane(textArea));
-        internalFrame.setSize(200, 200);
-        internalFrame.setVisible(true);
-        desktopPane.add(internalFrame);
-        try {
-            internalFrame.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-            e.printStackTrace();
-        }
-
     }
 }
 
