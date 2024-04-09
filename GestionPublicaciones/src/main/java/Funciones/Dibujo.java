@@ -30,6 +30,16 @@ public class Dibujo extends JPanel {
         g.drawImage(image, 0, 0, null);
     }
 
+    public void clear() {
+        graphics.setPaint(Color.white);
+        graphics.fillRect(0, 0, getSize().width, getSize().height);
+        graphics.setPaint(Color.black);
+        repaint();
+    }
 
-
+    private void draw(int x, int y) {
+        graphics.fillOval(x, y, 4, 4);
+        repaint();
+    }
+    
 }
