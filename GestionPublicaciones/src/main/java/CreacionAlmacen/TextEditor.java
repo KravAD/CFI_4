@@ -42,6 +42,9 @@ public class TextEditor extends JFrame {
         searchField = new JTextField(5);
         searchButton = new JButton("Search");
 
+        JLabel mousePositionLabel = new JLabel();
+        MouseTracker mouseTracker = new MouseTracker(mousePositionLabel);
+        textArea.addMouseMotionListener(mouseTracker);
 
         JPanel buttonPanel = new JPanel(new FlowLayout());
         buttonPanel.add(compareButton);
@@ -50,11 +53,13 @@ public class TextEditor extends JFrame {
         buttonPanel.add(createDocumentButton);
         add(buttonPanel, BorderLayout.NORTH);
 
-        JPanel searchPanel = new JPanel(new FlowLayout());
-        searchPanel.add(searchField);
-        searchPanel.add(searchButton);
-        add(searchPanel, BorderLayout.SOUTH);
 
+        JPanel southPanel = new JPanel(new BorderLayout());
+        southPanel.add(searchField);
+        southPanel.add(mousePositionLabel, BorderLayout.EAST);
+        buttonPanel.add(searchButton, BorderLayout.SOUTH);
+        add(southPanel, BorderLayout.SOUTH);
+        
         JPanel panelWest = new JPanel();
         panelWest.setLayout(new BoxLayout(panelWest, BoxLayout.Y_AXIS)); // Organizar verticalmente
         panelWest.add(new JScrollPane(fileList1));
