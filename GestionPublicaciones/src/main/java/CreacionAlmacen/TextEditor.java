@@ -44,18 +44,33 @@ public class TextEditor extends JFrame {
         validationLabel = new JLabel();
 
 
+
         JLabel mousePositionLabel = new JLabel();
         MouseTracker mouseTracker = new MouseTracker(mousePositionLabel);
         textArea.addMouseMotionListener(mouseTracker);
-//PANEL SUPERIOR
+
+        // PANEL SUPERIOR
         JPanel buttonPanel = new JPanel(new FlowLayout());
         JButton createDocumentButton = new JButton("Create Doc");
+        JButton drawingButton = new JButton("Draw");
+        drawingButton.addActionListener(e -> {
+            JFrame drawingFrame = new JFrame();
+            Dibujo drawingBoard = new Dibujo();
+            drawingFrame.add(drawingBoard, BorderLayout.CENTER);
+            JButton clearButton = new JButton("Clear");
+            clearButton.addActionListener(e1 -> drawingBoard.clear());
+            drawingFrame.add(clearButton, BorderLayout.SOUTH);
+            drawingFrame.setSize(800, 600);
+            drawingFrame.setVisible(true);
+        });
 
         buttonPanel.add(compareButton);
         buttonPanel.add(analyzeButton);
         buttonPanel.add(saveButton);
         buttonPanel.add(createDocumentButton);
+        buttonPanel.add(drawingButton);
         add(buttonPanel, BorderLayout.NORTH);
+
 
 //PANEL INFERIOR
         emailValidator = new ValEmail(textArea, validationLabel);
@@ -64,7 +79,9 @@ public class TextEditor extends JFrame {
         JPanel southPanel = new JPanel(new GridLayout(2, 1)); // 2 filas, 1 columna
         southPanel.add(searchField);
         southPanel.add(emailPanel);
+        southPanel.add(mousePositionLabel);
         add(southPanel, BorderLayout.SOUTH);
+
 
         //PANEL IZQUIERDO
         JPanel panelWest = new JPanel();
@@ -185,4 +202,3 @@ public class TextEditor extends JFrame {
         }
     }
 }
-

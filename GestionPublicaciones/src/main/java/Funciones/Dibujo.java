@@ -41,5 +41,5 @@ public class Dibujo extends JPanel {
         graphics.fillOval(x, y, 4, 4);
         repaint();
     }
-    
+
 }
