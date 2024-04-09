@@ -59,7 +59,7 @@ public class TextEditor extends JFrame {
         southPanel.add(mousePositionLabel, BorderLayout.EAST);
         buttonPanel.add(searchButton, BorderLayout.SOUTH);
         add(southPanel, BorderLayout.SOUTH);
-        
+
         JPanel panelWest = new JPanel();
         panelWest.setLayout(new BoxLayout(panelWest, BoxLayout.Y_AXIS)); // Organizar verticalmente
         panelWest.add(new JScrollPane(fileList1));
