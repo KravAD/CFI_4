@@ -5,4 +5,9 @@ import javax.swing.JLabel;
 
 
 public class MouseTracker {
+    private JLabel label;
+    public MouseTracker(JLabel label) {
+        this.label = label;
+    }
+
 }
