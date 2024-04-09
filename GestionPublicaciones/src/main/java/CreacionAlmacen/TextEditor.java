@@ -28,7 +28,6 @@ public class TextEditor extends JFrame {
     public TextEditor() {
         setLayout(new BorderLayout());
 
-//PRUEBA
         JButton createDocumentButton = new JButton("Create Document");
 
 
@@ -41,6 +40,7 @@ public class TextEditor extends JFrame {
         fileList2 = new JList<>(listModel2);
         FileAnalyzer = new FileAnalyzer();
         analyzeButton = new JButton("Analyze");
+
 
         JPanel buttonPanel = new JPanel(new FlowLayout());
         searchField = new JTextField(5);
@@ -55,6 +55,7 @@ public class TextEditor extends JFrame {
 
 
         add(new JScrollPane(textArea), BorderLayout.CENTER);
+
         buttonPanel.add(compareButton);
         buttonPanel.add(analyzeButton);
         buttonPanel.add(saveButton);
