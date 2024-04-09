@@ -30,8 +30,6 @@ public class TextEditor extends JFrame {
     public TextEditor() {
         setLayout(new BorderLayout());
 
-        JButton createDocumentButton = new JButton("Create Document");
-
         textArea = new JTextArea();
         saveButton = new JButton("Save");
         compareButton = new JButton("Compare");
@@ -49,48 +47,38 @@ public class TextEditor extends JFrame {
         JLabel mousePositionLabel = new JLabel();
         MouseTracker mouseTracker = new MouseTracker(mousePositionLabel);
         textArea.addMouseMotionListener(mouseTracker);
-
+//PANEL SUPERIOR
         JPanel buttonPanel = new JPanel(new FlowLayout());
+        JButton createDocumentButton = new JButton("Create Doc");
+
         buttonPanel.add(compareButton);
         buttonPanel.add(analyzeButton);
         buttonPanel.add(saveButton);
         buttonPanel.add(createDocumentButton);
         add(buttonPanel, BorderLayout.NORTH);
 
-        //POSIBLE CAMBIO POR EL DE ABAJO
-        // Crear una instancia de ValEmail con el JTextArea y JLabel
+//PANEL INFERIOR
         emailValidator = new ValEmail(textArea, validationLabel);
-
-        // Agregar el JLabel a la interfaz de usuario
         JPanel emailPanel = new JPanel(new FlowLayout());
         emailPanel.add(validationLabel);
-
-        // Crear un nuevo JPanel para contener el panel de búsqueda y el panel de validación de correo electrónico
         JPanel southPanel = new JPanel(new GridLayout(2, 1)); // 2 filas, 1 columna
         southPanel.add(searchField);
         southPanel.add(emailPanel);
         add(southPanel, BorderLayout.SOUTH);
 
-       // JPanel southPanel = new JPanel(new BorderLayout());
-        //southPanel.add(searchField);
-        //southPanel.add(mousePositionLabel, BorderLayout.EAST);
-        //buttonPanel.add(searchButton, BorderLayout.SOUTH);
-        //add(southPanel, BorderLayout.SOUTH);
-
+        //PANEL IZQUIERDO
         JPanel panelWest = new JPanel();
         panelWest.setLayout(new BoxLayout(panelWest, BoxLayout.Y_AXIS)); // Organizar verticalmente
         panelWest.add(new JScrollPane(fileList1));
         panelWest.add(new JScrollPane(fileList2));
         add(panelWest, BorderLayout.WEST);
 
+        //PANEL CENTRAL
         add(new JScrollPane(textArea), BorderLayout.CENTER);
-
         IntBar interactiveScrollBar = new IntBar(textArea);
         JScrollPane scrollPane = new JScrollPane(textArea);
         scrollPane.setVerticalScrollBar(interactiveScrollBar);
         add(scrollPane, BorderLayout.CENTER);
-
-
 
         //Botones
 
@@ -115,7 +103,7 @@ public class TextEditor extends JFrame {
             }
         });
 
-        JButton openContactManagerButton = new JButton("Open Contact Manager");
+        JButton openContactManagerButton = new JButton("Contact");
         openContactManagerButton.addActionListener(e -> {
             Gestor contactManager = new Gestor(this);
             contactManager.setVisible(true);

@@ -34,7 +34,7 @@ public class Gestor extends JDialog {
         return this.contacts;
     }
     public Gestor(JFrame parent) {
-            super(parent, "Contact Manager", true);
+            super(parent, "Contact", true);
             setLayout(new BorderLayout());
 
             gestor = new Gestor();
