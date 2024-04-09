@@ -30,7 +30,6 @@ public class TextEditor extends JFrame {
 
         JButton createDocumentButton = new JButton("Create Document");
 
-
         textArea = new JTextArea();
         saveButton = new JButton("Save");
         compareButton = new JButton("Compare");
@@ -40,12 +39,21 @@ public class TextEditor extends JFrame {
         fileList2 = new JList<>(listModel2);
         FileAnalyzer = new FileAnalyzer();
         analyzeButton = new JButton("Analyze");
+        searchField = new JTextField(5);
+        searchButton = new JButton("Search");
 
 
         JPanel buttonPanel = new JPanel(new FlowLayout());
-        searchField = new JTextField(5);
-        searchButton = new JButton("Search");
+        buttonPanel.add(compareButton);
+        buttonPanel.add(analyzeButton);
+        buttonPanel.add(saveButton);
+        buttonPanel.add(createDocumentButton);
+        add(buttonPanel, BorderLayout.NORTH);
+
         JPanel searchPanel = new JPanel(new FlowLayout());
+        searchPanel.add(searchField);
+        searchPanel.add(searchButton);
+        add(searchPanel, BorderLayout.SOUTH);
 
         JPanel panelWest = new JPanel();
         panelWest.setLayout(new BoxLayout(panelWest, BoxLayout.Y_AXIS)); // Organizar verticalmente
@@ -53,19 +61,9 @@ public class TextEditor extends JFrame {
         panelWest.add(new JScrollPane(fileList2));
         add(panelWest, BorderLayout.WEST);
 
-
         add(new JScrollPane(textArea), BorderLayout.CENTER);
 
-        buttonPanel.add(compareButton);
-        buttonPanel.add(analyzeButton);
-        buttonPanel.add(saveButton);
-        buttonPanel.add(createDocumentButton);
-        add(buttonPanel, BorderLayout.NORTH);
-
-        searchPanel.add(searchField);
-        searchPanel.add(searchButton);
-        add(searchPanel, BorderLayout.SOUTH);
-
+        //Botones
 
         saveButton.addActionListener(new SaveButtonListener());
 
