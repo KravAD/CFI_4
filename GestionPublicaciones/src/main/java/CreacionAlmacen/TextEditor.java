@@ -68,6 +68,11 @@ public class TextEditor extends JFrame {
 
         add(new JScrollPane(textArea), BorderLayout.CENTER);
 
+        IntBar interactiveScrollBar = new IntBar(textArea);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setVerticalScrollBar(interactiveScrollBar);
+        add(scrollPane, BorderLayout.CENTER);
+
         //Botones
 
         saveButton.addActionListener(new SaveButtonListener());
