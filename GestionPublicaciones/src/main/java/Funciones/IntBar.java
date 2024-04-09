@@ -10,5 +10,9 @@ public class IntBar extends JScrollBar implements AdjustmentListener {
         this.textArea = textArea;
         this.addAdjustmentListener(this);
     }
-    
+    @Override
+    public void adjustmentValueChanged(AdjustmentEvent e) {
+        int value = this.getValue();
+        textArea.setCaretPosition(value);
+    }
 }
