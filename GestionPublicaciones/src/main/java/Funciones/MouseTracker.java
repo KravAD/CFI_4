@@ -9,5 +9,9 @@ public class MouseTracker {
     public MouseTracker(JLabel label) {
         this.label = label;
     }
+    
+    public void mouseMoved(MouseEvent e) {
+        label.setText("Mouse position: (" + e.getX() + ", " + e.getY() + ")");
+    }
 
 }
