@@ -20,6 +20,16 @@ public class Dibujo extends JPanel {
             }
         });
     }
+    protected void paintComponent(Graphics g) {
+        if (image == null) {
+            image = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_INT_ARGB);
+            graphics = (Graphics2D) image.getGraphics();
+            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            clear();
+        }
+        g.drawImage(image, 0, 0, null);
+    }
+
 
 
 }
