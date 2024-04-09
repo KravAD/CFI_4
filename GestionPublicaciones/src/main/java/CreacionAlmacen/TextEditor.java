@@ -24,6 +24,8 @@ public class TextEditor extends JFrame {
 
     private JTextField searchField;
     private JButton searchButton;
+    private JLabel validationLabel;
+    private ValEmail emailValidator;
 
     public TextEditor() {
         setLayout(new BorderLayout());
@@ -41,6 +43,8 @@ public class TextEditor extends JFrame {
         analyzeButton = new JButton("Analyze");
         searchField = new JTextField(5);
         searchButton = new JButton("Search");
+        validationLabel = new JLabel();
+
 
         JLabel mousePositionLabel = new JLabel();
         MouseTracker mouseTracker = new MouseTracker(mousePositionLabel);
@@ -53,12 +57,25 @@ public class TextEditor extends JFrame {
         buttonPanel.add(createDocumentButton);
         add(buttonPanel, BorderLayout.NORTH);
 
+        //POSIBLE CAMBIO POR EL DE ABAJO
+        // Crear una instancia de ValEmail con el JTextArea y JLabel
+        emailValidator = new ValEmail(textArea, validationLabel);
 
-        JPanel southPanel = new JPanel(new BorderLayout());
+        // Agregar el JLabel a la interfaz de usuario
+        JPanel emailPanel = new JPanel(new FlowLayout());
+        emailPanel.add(validationLabel);
+
+        // Crear un nuevo JPanel para contener el panel de búsqueda y el panel de validación de correo electrónico
+        JPanel southPanel = new JPanel(new GridLayout(2, 1)); // 2 filas, 1 columna
         southPanel.add(searchField);
-        southPanel.add(mousePositionLabel, BorderLayout.EAST);
-        buttonPanel.add(searchButton, BorderLayout.SOUTH);
+        southPanel.add(emailPanel);
         add(southPanel, BorderLayout.SOUTH);
+
+       // JPanel southPanel = new JPanel(new BorderLayout());
+        //southPanel.add(searchField);
+        //southPanel.add(mousePositionLabel, BorderLayout.EAST);
+        //buttonPanel.add(searchButton, BorderLayout.SOUTH);
+        //add(southPanel, BorderLayout.SOUTH);
 
         JPanel panelWest = new JPanel();
         panelWest.setLayout(new BoxLayout(panelWest, BoxLayout.Y_AXIS)); // Organizar verticalmente
