@@ -1,5 +1,5 @@
 package CreacionAlmacen;
-import Analizar.*;
+import Funciones.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,13 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 
 public class TextEditor extends JFrame {
     private JTextArea textArea;
@@ -31,21 +25,11 @@ public class TextEditor extends JFrame {
     private JTextField searchField;
     private JButton searchButton;
 
-    //AQUI
-    private JDesktopPane desktopPane;
-
-
     public TextEditor() {
         setLayout(new BorderLayout());
 
-        //otra pantalla para el desktop
-        desktopPane = new JDesktopPane();
-
-        JFrame desktopFrame = new JFrame();
-        desktopFrame.add(desktopPane, BorderLayout.CENTER);
-        desktopFrame.setSize(800, 600);
-        desktopFrame.setVisible(true);
-        remove(desktopPane);
+//PRUEBA
+        JButton createDocumentButton = new JButton("Create Document");
 
 
         textArea = new JTextArea();
@@ -74,6 +58,7 @@ public class TextEditor extends JFrame {
         buttonPanel.add(compareButton);
         buttonPanel.add(analyzeButton);
         buttonPanel.add(saveButton);
+        buttonPanel.add(createDocumentButton);
         add(buttonPanel, BorderLayout.NORTH);
 
         searchPanel.add(searchField);
@@ -108,24 +93,29 @@ public class TextEditor extends JFrame {
             contactManager.setVisible(true);
         });
         buttonPanel.add(openContactManagerButton);
+        createDocumentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JDesktopPane desktopPane = new JDesktopPane();
+                JInternalFrame internalFrame = new JInternalFrame("Document", true, true, true, true);
+                JTextArea textArea = new JTextArea();
+                internalFrame.add(new JScrollPane(textArea));
+                internalFrame.setSize(200, 200);
+                internalFrame.setVisible(true);
+                desktopPane.add(internalFrame);
+                try {
+                    internalFrame.setSelected(true);
+                } catch (java.beans.PropertyVetoException ex) {
+                    ex.printStackTrace();
+                }
 
+                JFrame desktopFrame = new JFrame();
+                desktopFrame.add(desktopPane, BorderLayout.CENTER);
+                desktopFrame.setSize(800, 600);
+                desktopFrame.setVisible(true);
+            }
+        });
 
-        setSize(800, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-    }
-
-    private void createNewDocument() {
-        JInternalFrame internalFrame = new JInternalFrame("Document", true, true, true, true);
-        JTextArea textArea = new JTextArea();
-        internalFrame.add(new JScrollPane(textArea));
-        internalFrame.setSize(200, 200);
-        internalFrame.setVisible(true);
-        desktopPane.add(internalFrame);
-        try {
-            internalFrame.setSelected(true);
-        } catch (java.beans.PropertyVetoException e) {
-            e.printStackTrace();
-        }
 
 
         setSize(800, 600);
